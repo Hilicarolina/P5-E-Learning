@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActiveTest</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF((TEXT( Skill__c )=&quot;&quot;  ||   ISBLANK(Role__c)) &amp;&amp;  Active__c  ,  True, False)</errorConditionFormula>
+    <errorMessage>Skill y Role no pueden estar vacías</errorMessage>
+</ValidationRule>

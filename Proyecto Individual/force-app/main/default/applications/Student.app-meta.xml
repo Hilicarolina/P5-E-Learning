@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Profile</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>estudiante</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Student</label>
+    <navType>Standard</navType>
+    <tabs>Profile</tabs>
+    <tabs>Trail__c</tabs>
+    <tabs>Module__c</tabs>
+    <tabs>Trail_Module__c</tabs>
+    <tabs>Unit__c</tabs>
+    <tabs>Question__c</tabs>
+    <tabs>User_Module__c</tabs>
+    <tabs>User_Unit__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Student_UtilityBar</utilityBar>
+</CustomApplication>
