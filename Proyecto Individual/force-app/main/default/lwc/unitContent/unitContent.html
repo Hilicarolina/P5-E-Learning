@@ -17,8 +17,8 @@
                     <p class="slds-text-heading_small" >{description}</p>
                 </lightning-layout>&nbsp;&emsp;
             </div>
-
-            <template for:each={preguntas} for:item="pregunta">
+            
+            <template if:false={auxiliarHili} for:each={preguntas} for:item="pregunta">
                 <div key={pregunta.Id}>
                     <h1 slot="title">
                     <lightning-icon icon-name="standard:knowledge" size="small"></lightning-icon>&nbsp;{pregunta.Description__c}&emsp;
@@ -28,8 +28,13 @@
                  </template>
             </div>
                 </template>
-                <lightning-button label="Submit" onclick={handleSubmit}></lightning-button>
+                <lightning-button if:false={auxiliarHili} label="Submit"  onclick={handleSubmit}></lightning-button>
             </div>
+            <template  if:true={auxiliarHili}>
+                <p class="mensaje">¡PRUEBA COMPLETADA!</p>
+                <P class="puntosGanados">+{pointsEarned} Puntos</P>
+            </template>
         
+           
     </lightning-card>
 </template>

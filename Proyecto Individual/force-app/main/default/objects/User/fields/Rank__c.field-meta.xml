@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rank__c</fullName>
     <externalId>false</externalId>
+    <formula>IF(Points__c &lt; 200, &quot;SCOUT&quot;, IF(Points__c &lt;3000, &quot;HIKER&quot;, IF(Points__c &lt;9000, &quot;EXPLORER&quot;, IF(Points__c &lt; 18000,&quot;ADVENTURER&quot;,IF(Points__c &lt;35000,&quot;MOUNTAINEER&quot;,IF(Points__c &lt;50000,&quot;EXPEDITIONER&quot;,&quot;RANGER&quot;))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Rank</label>
-    <length>200</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -13,7 +13,7 @@ public class UnitService {
       
       //Esta variable es la que registrará la salida del método "registerUnitResponse". Si el registro de respuestas fue
       //exitoso, su valor será "True". 
-      //Boolean verify = false;
+      
       String IdUnidad = '';
       try{
         
@@ -50,7 +50,7 @@ public class UnitService {
      //por relación "master-detail" del registro "User_Unit__c" que crearemos a continuación.
      // 
      //Creación e inserción de un registro en el objeto "User_Unit__c":
-      User_Unit__c unitResp = new User_Unit__c(Unit__c = unitId,User_Module__c = moduleResp.Id,Status__c = 'Draft',User__c= userInfo.getUserId());   
+      User_Unit__c unitResp = new User_Unit__c(Unit__c = unitId,User_Module__c = moduleResp.Id,Status__c = 'Draft',User__c= userInfo.getUserId(),Points__c=0);   
       unitResp.Numbers_Of_Tries__c = !unit.User_Units__r.isEmpty() ? unit.User_Units__r[0].Numbers_Of_Tries__c + 1: 1;
       insert unitResp;
       
@@ -86,7 +86,7 @@ public class UnitService {
     //Actualizamos el campo "Status__c" en el objeto "User_Unit__c"  a 'Answered' para disparar el proceso de evaluación.
     unitResp.Status__c = 'Answered';
     update unitResp;
-    //verify = true;
+    
     IdUnidad=unitResp.Id;
   
 }
@@ -96,13 +96,13 @@ public class UnitService {
           Database.rollback(sp);
           throw e;
       }
-      //return verify;
+      
       return IdUnidad;
  }
   ////////////////////////////////////////Método que busca unidades dado su Id///////////////////////////
   @AuraEnabled(cacheable=true)
   public static User_Unit__c searchUnit(Id unidadId){
-    User_Unit__c unidad= [SELECT Id, Status__c FROM User_Unit__c WHERE Id=:unidadId];
+    User_Unit__c unidad= [SELECT Id, Status__c,Points__c FROM User_Unit__c WHERE Id=:unidadId];
    return unidad;
   }
   
@@ -183,9 +183,12 @@ public class UnitService {
       Unit__c unit = [SELECT Name,Description__c,Points__c,Time_estimate__c FROM Unit__c WHERE Id =: unitId WITH SECURITY_ENFORCED];
       //Listado de preguntas relacionadas a la unidad de la línea de arriba:
       List<Question__c> questions = [SELECT id,Name,Description__c,(SELECT id, Name, Description__c,Is_Correct__c FROM Answers__r)FROM question__c WHERE Unit__c =: unitId WITH SECURITY_ENFORCED];
-       
+       //Listado de unidades respondidas por el usuario:
+       List<User_Unit__c> unitResponses =[SELECT id,Points__c FROM User_Unit__c WHERE Status__c = 'Success' AND User__c =: UserInfo.getUserId() AND Unit__c =: unitId WITH SECURITY_ENFORCED];
+       System.debug(unitResponses);
+       System.debug('Por aquí estoy');
       //Instancia de la clase "UnitWrapper":
-      UnitWrapper unitWrap = new UnitWrapper(unit, questions);
+      UnitWrapper unitWrap = new UnitWrapper(unit, questions,unitResponses);
       return unitWrap;
   }
   
@@ -220,10 +223,12 @@ public class UnitService {
       public Unit__c unit; //Registro de Unidad solicitada
       @AuraEnabled 
       public List <Question__c> questions; //Listado de Preguntas con Opciones relacionadas
-
-      public UnitWrapper (Unit__c unit, List<Question__c> questions){
+      @AuraEnabled 
+      public List<User_Unit__c> UnitResponses;
+      public UnitWrapper (Unit__c unit, List<Question__c> questions,List<User_Unit__c> UnitResponses){
           this.unit = unit;
           this.questions = questions;
+          this.UnitResponses = UnitResponses;
       }
   }
 }
