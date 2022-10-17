@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-
+// cambio en nombre de función
 const TILE_WRAPPER_SELECTED_CLASS = 'tile-wrapper selected custom-box slds-box slds-p-around_medium';
 const TILE_WRAPPER_UNSELECTED_CLASS = 'tile-wrapper custom-box slds-box slds-p-around_medium';
 
